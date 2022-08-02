@@ -1,0 +1,37 @@
+<script>
+  const debounce = (fun, d) => {
+    let timeout;
+    return function () {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        fun();
+      }, d);
+    };
+  };
+
+  const throttle = (fun, d) => {
+    let flag = true;
+    return function () {
+      if (flag) {
+        fun();
+        flag = false;
+        setTimeout(() => {
+          flag = true;
+        }, d);
+      }
+    };
+  };
+
+  const apiCall = () => {
+    console.log("Api Called");
+  };
+
+  const advanceDebounce = debounce(apiCall, 300);
+  const advanceThrottle = throttle(apiCall, 800);
+</script>
+
+<label for="inp">Debounce:</label>
+<input inp="inp" type="text" oninput="advanceDebounce()" />
+
+<label for="inp1">Throttle:</label>
+<input inp="inp1" type="text" oninput="advanceThrottle()" />
